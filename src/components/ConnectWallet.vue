@@ -1,8 +1,8 @@
 <template>
   <div
     class="connect-btn"
-    :class="isConnected ? 'disabled' : ''"
-    @click="connect"
+    :class="connected ? 'disabled' : ''"
+    @click="connectFunc"
   >
     {{ text }}
   </div>
@@ -10,14 +10,24 @@
 
 <script lang="ts" setup>
 // import { ethers } from "ethers";
-import { ref } from "vue";
-import { isConnected, connect } from "@/typescript/connectWallet.ts";
+import { ref, onMounted } from "vue";
+import { getAccount } from "@/typescript/connectWallet.ts";
 const text = ref("Connect Wallet");
 const connected = ref(false);
-connected.value = isConnected;
-if (isConnected) {
-  text.value = "Connected";
-}
+const connectFunc = async () => {
+  getAccount();
+};
+onMounted(async () => {
+  const success = await getAccount();
+  connected.value = success;
+  if (connected.value) {
+    text.value = "Connected";
+  }
+  window.ethereum.on("accountsChanged", () => {
+    connected.value = true;
+    text.value = "Connected";
+  });
+});
 </script>
 <style lang="less" scoped>
 .connect-btn {

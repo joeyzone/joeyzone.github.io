@@ -79,7 +79,7 @@ const transferFrom = async () => {
   if (success) {
     ElMessage({
       showClose: true,
-      message: "Copy Success",
+      message: "Transfer Success",
       type: "success",
     });
   }
