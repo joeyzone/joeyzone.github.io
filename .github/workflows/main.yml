@@ -30,19 +30,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Node
-        uses: actions/setup-node@v3
+        
+      # setup node
+      - name: Setup Node.js
+        uses: actions/setup-node@v3 
         with:
           node-version: 18
-          # setup pnpm
+          
+      # setup pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
           version: 7
           run_install: false
+        
+      # cache
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+          
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      # cache fail and install dependencies
       - name: Install dependencies
-        run: pnpm install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: |
+          pnpm install
       - name: Build
         run: pnpm run build
       - name: Setup Pages
