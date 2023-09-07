@@ -64,7 +64,7 @@ jobs:
       - name: Install dependencies
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: |
-          pnpm install --no-frozen-lockfile
+          pnpm install
       - name: Build
         run: pnpm run build
       - name: Setup Pages
