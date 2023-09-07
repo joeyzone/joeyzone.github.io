@@ -28,16 +28,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      # setup node
-      - name: Setup Node.js
-        uses: actions/setup-node@v3 
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-      # setup pnpm
+          # setup pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         id: pnpm-install
@@ -45,7 +42,7 @@ jobs:
           version: 7
           run_install: false
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Build
         run: pnpm run build
       - name: Setup Pages
