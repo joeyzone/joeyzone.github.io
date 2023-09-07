@@ -18,7 +18,9 @@
             v-clipboard:success="clipboardSuccessHandler"
           >
             <span class="b-text">{{ formSignature.signature }}</span>
-            <div class="btn-colorful s-btn">copy</div>
+            <div v-show="formSignature.signature" class="btn-colorful s-btn">
+              copy
+            </div>
           </div>
         </el-form-item>
       </el-form>

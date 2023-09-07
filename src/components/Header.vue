@@ -5,13 +5,13 @@
         <router-link to="/">
           <div class="logo-img">JYZ</div>
         </router-link>
-        <a
+        <!-- <a
           href="https://github.com/joeyzone"
           target="_blank"
           rel="noopener noreferrer"
           class="intro"
           >www.github.com/joeyzone</a
-        >
+        > -->
       </div>
       <div class="nav-box">
         <div class="nav-item">
@@ -63,9 +63,9 @@ import ConnectWallet from "@/components/ConnectWallet.vue";
     margin-top: 4px;
     color: rgba(195, 33, 111, 0.5);
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;

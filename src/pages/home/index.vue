@@ -1584,6 +1584,14 @@
           <p class="n-text">
             But now I just want to be a smart contract engineer
           </p>
+          <a
+            class="link"
+            href="mailto:joeyzoneone@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            joeyzoneone@gmail.com
+          </a>
         </div>
       </div>
 
@@ -1600,7 +1608,13 @@
             >https://github.com/joeyzone/JYZ-DAO</a
           >
           <p class="n-text">Frontend source code</p>
-          <a>Waiting...</a>
+          <a
+            href="https://github.com/joeyzone/joeyzone.github.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link"
+            >https://github.com/jojoeyzone/joeyzone.github.io</a
+          >
         </div>
       </div>
     </div>
@@ -1898,6 +1912,9 @@ onMounted(() => {
 .slef-intro {
   background-color: #252423;
   color: #f6f4f2;
+  .link {
+    color: #f6f4f2;
+  }
 }
 .pro-desc {
   background-color: #f6f4f2;
