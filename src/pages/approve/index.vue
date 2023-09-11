@@ -2,6 +2,11 @@
   <div class="permit-page">
     <Header />
     <div class="approve-part">
+      <p class="note">
+        If you would like some sepolia network test coins, please email me at
+        joeyzoneone@gmail.com. Attach your address and quantity, and I will
+        generate a signature authorization for you.
+      </p>
       <el-form :model="formApprove" label-width="120px">
         <el-form-item label="Owner">
           <el-input v-model="formApprove.owner" />
@@ -93,6 +98,10 @@ const transferFrom = async () => {
   .approve-part {
     max-width: 600px;
     margin: 0 auto;
+  }
+  .note {
+    padding-left: 120px;
+    color: #ccc;
   }
 }
 .btn-box {

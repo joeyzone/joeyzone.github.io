@@ -1,6 +1,11 @@
 <template>
   <div class="permit-page">
     <div class="sig-part">
+      <p class="note">
+        If you would like some sepolia network test coins, please email me at
+        joeyzoneone@gmail.com. Attach your address and quantity, and I will
+        generate a signature authorization for you.
+      </p>
       <el-form :model="formSignature" label-width="120px">
         <el-form-item label="Spender">
           <el-input v-model="formSignature.spender" />
@@ -96,6 +101,10 @@ const sigFunc = async () => {
 .sig-part {
   max-width: 600px;
   margin: 0 auto;
+  .note {
+    padding-left: 120px;
+    color: #ccc;
+  }
   .clip-box {
     display: flex;
     justify-content: space-between;
