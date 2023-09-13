@@ -1599,6 +1599,13 @@
         <div class="context-content">
           <h1 class="h1-title">JYZ DAO</h1>
           <p class="h2-title">Introduction:</p>
+          <p class="n-text">
+            If you would like some sepolia network test coins, please email me
+            at joeyzoneone@gmail.com. Attach your address and quantity, and I
+            will generate a signature authorization for you. Then you can use
+            approve page to get this token
+          </p>
+
           <p class="n-text">Solidity source code</p>
           <a
             class="link"
