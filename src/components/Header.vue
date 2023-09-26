@@ -25,13 +25,13 @@
       </div>
     </div>
     <div class="right-part">
-      <ConnectWallet />
+      <Wallet />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import ConnectWallet from "@/components/ConnectWallet.vue";
+import Wallet from "@/components/Wallet.vue";
 </script>
 
 <style scoped lang="less">

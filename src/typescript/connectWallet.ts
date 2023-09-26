@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 
-export const isConnected = window.ethereum.isConnected();
 export const connect = async () => {
   const chainId = ethers.toBeHex(11155111);
   try {
@@ -52,4 +51,18 @@ export async function getAccount() {
 
   // const account = accounts[0];
   return ret;
+}
+
+export async function isConnected() {
+  const accounts = await window.ethereum.request({
+    method: "eth_accounts",
+    params: [],
+  });
+  if (accounts.length) {
+    console.log(`You're connected to: ${accounts[0]}`);
+    return true;
+  } else {
+    console.log("Metamask is not connected");
+    return false;
+  }
 }

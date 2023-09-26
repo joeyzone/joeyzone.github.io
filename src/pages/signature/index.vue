@@ -37,8 +37,9 @@
 import { ethers } from "ethers";
 import { reactive, inject } from "vue";
 import { ElMessage } from "element-plus";
-const globalProperties: any = inject("globalProperties");
-console.log("🚀 ~ file: index.vue:47 ~ globalProperties:", globalProperties);
+// const globalProperties: any = inject("globalProperties");
+const emitter: any = inject("emitter");
+// console.log("🚀 ~ file: index.vue:47 ~ globalProperties:", globalProperties);
 
 // const VITE_PROVIDER = import.meta.env.VITE_PROVIDER;
 
@@ -56,14 +57,23 @@ const clipboardSuccessHandler = () => {
   });
 };
 const sigFunc = async () => {
+  if (!window.provider || !window.signer) {
+    emitter.emit("needWallet", sigCallback);
+    return;
+  }
+  sigCallback();
+  // console.log("🚀 ~ file: index.vue:71 ~ approve ~ signature:", signature);
+};
+
+const sigCallback = async () => {
   const domainData = {
-    name: globalProperties.domain[1],
-    version: globalProperties.domain[2],
-    chainId: globalProperties.domain[3],
-    verifyingContract: globalProperties.domain[4],
+    name: window.domain[1],
+    version: window.domain[2],
+    chainId: window.domain[3],
+    verifyingContract: window.domain[4],
   };
-  const nonce = await globalProperties.contractJYZ.ownerNonce(
-    globalProperties.signAddr
+  const nonce = await window.contractJYZ.ownerNonce(
+    await window.signer.getAddress()
   );
   console.log("🚀 ~ file: index.vue:56 ~ approve ~ nonce:", nonce);
   const types = {
@@ -76,19 +86,18 @@ const sigFunc = async () => {
   };
   // 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
   const permitData = {
-    owner: globalProperties.signAddr,
+    owner: await window.signer.getAddress(),
     spender: formSignature.spender,
     amount: ethers.parseEther(formSignature.amount.toString()),
     nonce,
   };
 
-  const signature = await globalProperties.signer.signTypedData(
+  const signature = await window.signer.signTypedData(
     domainData,
     types,
     permitData
   );
   formSignature.signature = signature;
-  // console.log("🚀 ~ file: index.vue:71 ~ approve ~ signature:", signature);
 };
 </script>
 

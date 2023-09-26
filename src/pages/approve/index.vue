@@ -22,8 +22,12 @@
         </el-form-item>
         <el-form-item>
           <div class="btn-box">
-            <div class="btn-colorful" @click="approveFunc">Approve</div>
-            <div class="btn-colorful btn2" @click="transferFrom">Transfer</div>
+            <div class="btn-colorful" @click="btnClick(approveFunc)">
+              Approve
+            </div>
+            <div class="btn-colorful btn2" @click="btnClick(transferFrom)">
+              Transfer
+            </div>
           </div>
         </el-form-item>
       </el-form>
@@ -36,9 +40,10 @@ import { ethers } from "ethers";
 import { reactive, inject } from "vue";
 import { ElMessage } from "element-plus";
 
-const globalProperties: any = inject("globalProperties");
-console.log("🚀 ~ file: index.vue:47 ~ globalProperties:", globalProperties);
+// const globalProperties: any = inject("globalProperties");
+// console.log("🚀 ~ file: index.vue:47 ~ globalProperties:", globalProperties);
 
+const emitter: any = inject("emitter");
 // const { provider, addrJYZ, signer, signAddr, domain, contractJYZ, addrs } =
 //   globalProperties;
 
@@ -52,8 +57,8 @@ const formApprove = reactive({
 });
 
 const approveFunc = async () => {
-  await globalProperties.contractJYZ
-    .connect(globalProperties.signer)
+  await window.contractJYZ
+    ?.connect(window.signer)
     .permit(
       formApprove.owner,
       formApprove.spender,
@@ -62,19 +67,28 @@ const approveFunc = async () => {
     );
 };
 
-let success;
+const btnClick = async (method: () => void) => {
+  if (!window.provider || !window.signer) {
+    emitter.emit("needWallet", method);
+    return;
+  }
+  method();
+  // console.log("🚀 ~ file: index.vue:71 ~ approve ~ signature:", signature);
+};
+
+let success = false;
 const transferFrom = async () => {
   if (VITE_PROVIDER === "local") {
-    success = await globalProperties.contractJYZ
-      .connect(globalProperties.addrs[1])
-      .transferFrom(
-        formApprove.owner,
-        formApprove.spender,
-        ethers.parseEther(formApprove.amount.toString())
-      );
+    // success = await window.contractJYZ
+    //   .connect(window.addrs[1])
+    //   .transferFrom(
+    //     formApprove.owner,
+    //     formApprove.spender,
+    //     ethers.parseEther(formApprove.amount.toString())
+    //   );
   } else {
-    success = await globalProperties.contractJYZ
-      .connect(globalProperties.signer)
+    success = await window.contractJYZ
+      ?.connect(window.signer)
       .transferFrom(
         formApprove.owner,
         formApprove.spender,
