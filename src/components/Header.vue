@@ -15,12 +15,21 @@
       </div>
       <div class="nav-box">
         <div class="nav-item">
-          <router-link to="/signature" class="text-gradient"
-            >Signature</router-link
+          <router-link
+            to="/signature"
+            class="text-gradient"
+            :class="{ active: $route.path === '/signature' }"
+          >
+            Signature</router-link
           >
         </div>
         <div class="nav-item">
-          <router-link to="/approve" class="text-gradient">Approve</router-link>
+          <router-link
+            to="/approve"
+            class="text-gradient"
+            :class="{ active: $route.path === '/approve' }"
+            >Approve</router-link
+          >
         </div>
       </div>
     </div>
@@ -48,9 +57,9 @@ import Wallet from "@/components/Wallet.vue";
   background-color: #fff;
   z-index: 9;
   .text-gradient {
-    background-image: linear-gradient(to right, #ff007a, #9198e5);
-    -webkit-background-clip: text;
-    color: transparent;
+    color: #e0c2c282;
+    text-decoration: none;
+    transition: all 0.3s ease;
   }
 
   .left-part {
@@ -92,6 +101,11 @@ import Wallet from "@/components/Wallet.vue";
   .right-part {
     margin-right: 120px;
     // line-height: 60px;
+  }
+  .active.text-gradient {
+    background-image: linear-gradient(to right, #ff007a, #9198e5);
+    -webkit-background-clip: text;
+    color: transparent;
   }
 }
 </style>
